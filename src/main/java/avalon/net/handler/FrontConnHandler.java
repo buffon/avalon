@@ -144,6 +144,7 @@ public class FrontConnHandler extends ChannelInboundHandlerAdapter {
     public ArrayList<AvalonPluginBase> getPlugins() {
         return plugins;
     }
+    
 
     public void setPlugins(ArrayList<AvalonPluginBase> plugins) {
         this.plugins = plugins;
