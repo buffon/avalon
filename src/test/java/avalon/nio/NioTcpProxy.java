@@ -19,14 +19,15 @@ import java.util.concurrent.Executor;
  */
 public class NioTcpProxy {
 
-    private  int BLOCK = 4096;
-    private  Selector selector;
+    private int BLOCK = 4096;
+    private Selector selector;
 
     private Executor executor;
-    public void start(){
+
+    public void start() {
         try {
             ServerSocketChannel acceptor = ServerSocketChannel.open();
-            acceptor.socket().bind(new InetSocketAddress("127.0.0.1",8081));
+            acceptor.socket().bind(new InetSocketAddress("127.0.0.1", 8081));
             acceptor.configureBlocking(false);
             selector = Selector.open();
             acceptor.register(selector, SelectionKey.OP_ACCEPT);
@@ -38,8 +39,8 @@ public class NioTcpProxy {
         }
     }
 
-    public void listen() throws IOException{
-        for(;;){
+    public void listen() throws IOException {
+        for (; ; ) {
             selector.select(1000L);
             Set<SelectionKey> selectionKeys = selector.selectedKeys();
             Iterator<SelectionKey> iterator = selectionKeys.iterator();
@@ -52,13 +53,13 @@ public class NioTcpProxy {
     }
 
     private void handleKey(SelectionKey selectionKey) throws IOException {
-         if(selectionKey.isAcceptable()){
-            ServerSocketChannel server = (ServerSocketChannel)selectionKey.channel();
+        if (selectionKey.isAcceptable()) {
+            ServerSocketChannel server = (ServerSocketChannel) selectionKey.channel();
             SocketChannel client = server.accept();
             System.out.println("accept");
             NioConn conn = new NioConn(client);
             conn.start();
-         }
+        }
     }
 
     public static void main(String args[]) throws IOException, InterruptedException {

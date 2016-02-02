@@ -4,13 +4,14 @@
 package avalon.mysql.proto;
 
 import org.junit.*;
+
 import static org.junit.Assert.*;
 
 public class OKTest {
     @Test
     public void test1() {
         byte[] packet = Proto.packet_string_to_bytes(
-            "07 00 00 02 00 00 00 02    00 00 00"
+                "07 00 00 02 00 00 00 02    00 00 00"
         );
 
         OK ok = OK.loadFromPacket(packet);

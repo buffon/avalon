@@ -77,7 +77,7 @@ public class AvalonProxy extends AvalonPluginBase {
                 } else {
                     System.out.println("query=" + query.query);
                 }
-                context.packet=query.toPacket();
+                context.packet = query.toPacket();
                 break;
 
             default:

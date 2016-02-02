@@ -9,6 +9,7 @@ package avalon.plugin.debug;
  */
 
 import java.util.ArrayList;
+
 import org.apache.log4j.Logger;
 
 import avalon.Engine;
@@ -18,91 +19,91 @@ import avalon.plugin.Base;
 
 public class Debug extends Base {
     public Logger logger = Logger.getLogger("Plugin.Debug");
-    
+
     public void read_handshake(Engine context) {
         System.out.println("<- HandshakePacket");
-        System.out.println("   Server Version: "+context.handshake.serverVersion);
-        System.out.println("   Connection Id: "+context.handshake.connectionId);
+        System.out.println("   Server Version: " + context.handshake.serverVersion);
+        System.out.println("   Connection Id: " + context.handshake.connectionId);
         System.out.println("   Server Capability Flags: "
-                          + Debug.dump_capability_flags(context.handshake.capabilityFlags));
+                + Debug.dump_capability_flags(context.handshake.capabilityFlags));
     }
-    
+
     public void read_auth(Engine context) {
         System.out.println("-> AuthResponsePacket");
-        System.out.println("   Max Packet Size: "+context.authReply.maxPacketSize);
-        System.out.println("   User: "+context.authReply.username);
-        System.out.println("   Schema: "+context.authReply.schema);
-        
+        System.out.println("   Max Packet Size: " + context.authReply.maxPacketSize);
+        System.out.println("   User: " + context.authReply.username);
+        System.out.println("   Schema: " + context.authReply.schema);
+
         System.out.println("   Client Capability Flags: "
-                          + Debug.dump_capability_flags(context.authReply.capabilityFlags));
+                + Debug.dump_capability_flags(context.authReply.capabilityFlags));
     }
-    
+
     public void read_query(Engine context) {
         switch (Packet.getType(context.buffer.get(context.buffer.size() - 1))) {
             case Flags.COM_QUIT:
                 System.out.println("-> COM_QUIT");
                 break;
-            
+
             // Extract out the new default schema
             case Flags.COM_INIT_DB:
-                System.out.println("-> USE "+context.schema);
+                System.out.println("-> USE " + context.schema);
                 break;
-            
+
             // Query
             case Flags.COM_QUERY:
                 System.out.println("-> " + context.query);
                 break;
-            
+
             default:
-                System.out.println("Packet is "+Packet.getType(context.buffer.get(context.buffer.size()-1))+" type.");
+                System.out.println("Packet is " + Packet.getType(context.buffer.get(context.buffer.size() - 1)) + " type.");
                 Debug.dump_buffer(context);
                 break;
         }
         context.buffer_result_set();
     }
 
-    
+
     public void read_query_result(Engine context) {
         if (!context.bufferResultSet)
             return;
-        
-        switch (Packet.getType(context.buffer.get(context.buffer.size()-1))) {
+
+        switch (Packet.getType(context.buffer.get(context.buffer.size() - 1))) {
             case Flags.OK:
                 System.out.println("<- OK");
                 break;
-            
+
             case Flags.ERR:
                 System.out.println("<- ERR");
                 break;
-            
+
             default:
-                System.out.println("Result set or Packet is "+Packet.getType(context.buffer.get(context.buffer.size()-1))+" type.");
+                System.out.println("Result set or Packet is " + Packet.getType(context.buffer.get(context.buffer.size() - 1)) + " type.");
                 break;
         }
     }
-    
+
     public static final void dump_buffer(ArrayList<byte[]> buffer) {
         Logger logger = Logger.getLogger("Plugin.Debug");
-        
+
         if (!logger.isTraceEnabled())
             return;
-        
-        for (byte[] packet: buffer) {
+
+        for (byte[] packet : buffer) {
             Packet.dump(packet);
         }
     }
-    
+
     public static final void dump_buffer(Engine context) {
         Logger logger = Logger.getLogger("Plugin.Debug");
-        
+
         if (!logger.isTraceEnabled())
             return;
-        
-        for (byte[] packet: context.buffer) {
+
+        for (byte[] packet : context.buffer) {
             Packet.dump(packet);
         }
     }
-    
+
     public static final String dump_capability_flags(long capabilityFlags) {
         String out = "";
         if ((capabilityFlags & Flags.CLIENT_LONG_PASSWORD) != 0)
@@ -139,7 +140,7 @@ public class Debug extends Base {
             out += " CLIENT_SECURE_CONNECTION";
         return out;
     }
-    
+
     public static final String dump_status_flags(long statusFlags) {
         String out = "";
         if ((statusFlags & Flags.SERVER_STATUS_IN_TRANS) != 0)

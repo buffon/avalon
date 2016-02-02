@@ -4,13 +4,14 @@
 package avalon.mysql.proto;
 
 import org.junit.*;
+
 import static org.junit.Assert.*;
 
 public class EOFTest {
     @Test
     public void test1() {
         byte[] packet = Proto.packet_string_to_bytes(
-            "05 00 00 05 fe 00 00 02 00"
+                "05 00 00 05 fe 00 00 02 00"
         );
 
         EOF pkt = EOF.loadFromPacket(packet);

@@ -2,6 +2,7 @@
  * Copyright (C) 2015 Baidu, Inc. All Rights Reserved.
  */
 package avalon.nio;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -15,7 +16,7 @@ import java.util.Set;
 /**
  * Created by lizhuyang on 2015/1/28.
  */
-public class NioConn extends Thread{
+public class NioConn extends Thread {
     SocketChannel serverChannel;
     SocketChannel clientChannel;
     Selector selector;
@@ -23,9 +24,9 @@ public class NioConn extends Thread{
     /*缓冲区大小*/
     private static int BLOCK = 4096;
     /*接受数据缓冲区*/
- //   private  TcpProxyBuffer clientBuffer = new TcpProxyBuffer();
+    //   private  TcpProxyBuffer clientBuffer = new TcpProxyBuffer();
 
- //   private TcpProxyBuffer serverBuffer = new TcpProxyBuffer();
+    //   private TcpProxyBuffer serverBuffer = new TcpProxyBuffer();
 
     ByteBuffer clientBuffer = ByteBuffer.allocate(1000);
     ByteBuffer serverBuffer = ByteBuffer.allocate(1000);
@@ -37,7 +38,7 @@ public class NioConn extends Thread{
         clientChannel = SocketChannel.open();
         clientChannel.configureBlocking(false);
         clientChannel.connect(new InetSocketAddress("127.0.0.1", 3306));
-        while(!clientChannel.finishConnect());
+        while (!clientChannel.finishConnect()) ;
         clientChannel.register(selector, SelectionKey.OP_READ);
         serverChannel.register(selector, SelectionKey.OP_READ);
     }
@@ -45,9 +46,9 @@ public class NioConn extends Thread{
     @Override
     public void run() {
         final Selector selector = this.selector;
-        for(;;){
+        for (; ; ) {
             try {
-                if(selector.select(1000L) == 0){
+                if (selector.select(1000L) == 0) {
                     System.out.print(".");
                     continue;
                 }
@@ -60,10 +61,10 @@ public class NioConn extends Thread{
 
                 }
                 selector.selectedKeys().clear();
-            } catch (final ClosedChannelException exception){
+            } catch (final ClosedChannelException exception) {
                 destroy();
                 break;
-            }catch(IOException e){
+            } catch (IOException e) {
                 destroy();
                 e.printStackTrace();
                 break;
@@ -87,37 +88,37 @@ public class NioConn extends Thread{
     }
 
     public void readFromClient() throws IOException {
-       int count = clientChannel.read(serverBuffer);
-       if(count < 0){
-           throw new ClosedChannelException();
-       }
-       System.out.println("readFromClient");
-       serverBuffer.flip();
-       serverChannel.register(selector,SelectionKey.OP_WRITE);
+        int count = clientChannel.read(serverBuffer);
+        if (count < 0) {
+            throw new ClosedChannelException();
+        }
+        System.out.println("readFromClient");
+        serverBuffer.flip();
+        serverChannel.register(selector, SelectionKey.OP_WRITE);
     }
 
     public void readFromServer() throws IOException {
         int count = serverChannel.read(clientBuffer);
-        if(count < 0){
+        if (count < 0) {
             throw new ClosedChannelException();
         }
         System.out.println("readFromServer");
         clientBuffer.flip();
-        clientChannel.register(selector,SelectionKey.OP_WRITE);
+        clientChannel.register(selector, SelectionKey.OP_WRITE);
     }
 
     public void writeToClient() throws IOException {
         clientChannel.write(clientBuffer);
         System.out.println("writeToClient");
         clientBuffer.clear();
-        clientChannel.register(selector,SelectionKey.OP_READ);
+        clientChannel.register(selector, SelectionKey.OP_READ);
     }
 
     public void writeToServer() throws IOException {
         serverChannel.write(serverBuffer);
         System.out.println("writeToServer");
         serverBuffer.clear();
-        serverChannel.register(selector,SelectionKey.OP_READ);
+        serverChannel.register(selector, SelectionKey.OP_READ);
     }
 
     @Override
@@ -126,7 +127,7 @@ public class NioConn extends Thread{
         closeQuietly(serverChannel);
     }
 
-    private static void closeQuietly(SocketChannel channel){
+    private static void closeQuietly(SocketChannel channel) {
         if (channel != null) {
             try {
                 channel.close();

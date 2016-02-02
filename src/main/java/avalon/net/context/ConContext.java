@@ -65,7 +65,7 @@ public class ConContext {
 
     public ArrayList<byte[]> buffer = new ArrayList<byte[]>();
 
-    public ByteBuf halfbuf ;
+    public ByteBuf halfbuf;
 
     public void clear_buffer() {
         this.offset = 0;

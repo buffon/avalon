@@ -200,7 +200,7 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
 
     For more information on the Terracotta configuration, see the Terracotta documentation.
     -->
-    
+
     <!--
     <terracottaConfig url="localhost:9510"/>
     -->
@@ -665,7 +665,7 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
 
     The defaultCache has an implicit name "default" which is a reserved cache name.
     -->
-    
+
     <!--
     <defaultCache
            maxEntriesLocalHeap="0"
@@ -676,7 +676,7 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
       <terracotta/>
     </defaultCache>
     -->
-    
+
     <!--
     Sample caches. Following are some example caches. Remove these before use.
     -->
@@ -691,7 +691,7 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
     disk cache, which in this configuration will go to wherever java.io.tmp is
     defined on your system. On a standard Linux system this will be /tmp"
     -->
-    
+
     <!--
     <cache name="sampleCache1"
            maxEntriesLocalHeap="10000"
@@ -712,7 +712,7 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
     is also the maximum cache size. Note that when a cache is eternal, timeToLive and
     timeToIdle are not used and do not need to be specified.
     -->
-    
+
     <!--
     <cache name="sampleCache2"
            maxEntriesLocalHeap="1000"
@@ -727,7 +727,7 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
     persistent between cache and VM restarts. The disk expiry thread interval is set to 10
     minutes, overriding the default of 2 minutes.
     -->
-    
+
     <!--
     <cache name="sampleCache3"
            maxEntriesLocalHeap="500"
@@ -745,7 +745,7 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
     Sample Terracotta clustered cache named sampleTerracottaCache.
     This cache uses Terracotta to cluster the contents of the cache.
     -->
-    
+
     <!--
     <cache name="sampleTerracottaCache"
            maxBytesLocalHeap="10m"
@@ -803,10 +803,10 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
 -->
 
     <defaultCache
-           eternal="true"
-           overflowToDisk="false"
-           memoryStoreEvictionPolicy="FIFO"
-           >
+            eternal="true"
+            overflowToDisk="false"
+            memoryStoreEvictionPolicy="FIFO"
+            >
         <sizeOfPolicy maxDepth="100000" maxDepthExceededBehavior="continue"/>
     </defaultCache>
 
@@ -815,7 +815,7 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
            eternal="true"
            overflowToDisk="false"
            memoryStoreEvictionPolicy="FIFO"
-           >
+            >
         <sizeOfPolicy maxDepth="100000" maxDepthExceededBehavior="continue"/>
     </cache>
 

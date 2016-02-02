@@ -28,7 +28,7 @@ public class BackConnFactory extends ChannelInitializer<SocketChannel> {
         BackConnHandler handler = new BackConnHandler(frontConnHandler);
         baseList.add(new AvalonProxy());
         handler.setPlugins(baseList);
-        ch.pipeline().addLast(new PacketDecoder(),handler);
+        ch.pipeline().addLast(new PacketDecoder(), handler);
 
     }
 }

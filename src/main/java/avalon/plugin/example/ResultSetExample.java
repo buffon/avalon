@@ -8,6 +8,7 @@ package avalon.plugin.example;
  */
 
 import java.util.Date;
+
 import org.apache.log4j.Logger;
 
 import avalon.Engine;
@@ -22,11 +23,11 @@ public class ResultSetExample extends Base {
     public void init(Engine context) {
         this.logger = Logger.getLogger("Plugin.Example.ResultSetExample");
     }
-    
+
     public void read_query_result(Engine context) {
         this.logger.info("Plugin->read_query");
 
-        if(context.query.indexOf("select")>=0) {
+        if (context.query.indexOf("select") >= 0) {
 
             ResultSet rs = new ResultSet();
 

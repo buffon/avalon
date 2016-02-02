@@ -17,7 +17,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 public class MySqlProxyServer {
     private static final int port = 8080;
 
-    public void start()  {
+    public void start() {
         EventLoopGroup bossGroup = new NioEventLoopGroup();// 通过nio方式来接收连接和处理连接
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
@@ -29,12 +29,12 @@ public class MySqlProxyServer {
 
             f.channel().closeFuture().sync();
 
-        }catch(InterruptedException e){
-            System.out.println("监听失败"+e);
+        } catch (InterruptedException e) {
+            System.out.println("监听失败" + e);
         }
     }
 
-    public static void main(String args[]){
+    public static void main(String args[]) {
         MySqlProxyServer proxyServer = new MySqlProxyServer();
         proxyServer.start();
     }

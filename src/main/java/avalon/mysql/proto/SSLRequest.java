@@ -4,6 +4,7 @@
 package avalon.mysql.proto;
 
 import java.util.ArrayList;
+
 import org.apache.log4j.Logger;
 
 public class SSLRequest extends Packet {
@@ -30,10 +31,10 @@ public class SSLRequest extends Packet {
     public ArrayList<byte[]> getPayload() {
         ArrayList<byte[]> payload = new ArrayList<byte[]>();
 
-        payload.add( Proto.build_fixed_int(4, this.capabilityFlags));
-        payload.add( Proto.build_fixed_int(4, this.maxPacketSize));
-        payload.add( Proto.build_fixed_int(1, this.characterSet));
-        payload.add( Proto.build_filler(23));
+        payload.add(Proto.build_fixed_int(4, this.capabilityFlags));
+        payload.add(Proto.build_fixed_int(4, this.maxPacketSize));
+        payload.add(Proto.build_fixed_int(1, this.characterSet));
+        payload.add(Proto.build_filler(23));
 
         return payload;
     }

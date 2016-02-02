@@ -13,7 +13,7 @@ import io.netty.channel.socket.SocketChannel;
 /**
  * Created by lizhuyang on 2015/1/28.
  */
-public class FrontConnFactory  extends ChannelInitializer<SocketChannel> {
+public class FrontConnFactory extends ChannelInitializer<SocketChannel> {
     //这边的pipeline类似tomcat的管道
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
@@ -21,6 +21,6 @@ public class FrontConnFactory  extends ChannelInitializer<SocketChannel> {
         FrontConnHandler handler = new FrontConnHandler();
         baseList.add(new AvalonProxy());
         handler.setPlugins(baseList);
-        ch.pipeline().addLast(new PacketDecoder(),handler);
+        ch.pipeline().addLast(new PacketDecoder(), handler);
     }
 }

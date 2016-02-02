@@ -31,43 +31,37 @@ public class Proto {
         byte[] packet = new byte[size];
 
         if (size == 8) {
-            packet[0] = (byte) ((value >>  0) & 0xFF);
-            packet[1] = (byte) ((value >>  8) & 0xFF);
+            packet[0] = (byte) ((value >> 0) & 0xFF);
+            packet[1] = (byte) ((value >> 8) & 0xFF);
             packet[2] = (byte) ((value >> 16) & 0xFF);
             packet[3] = (byte) ((value >> 24) & 0xFF);
             packet[4] = (byte) ((value >> 32) & 0xFF);
             packet[5] = (byte) ((value >> 40) & 0xFF);
             packet[6] = (byte) ((value >> 48) & 0xFF);
             packet[7] = (byte) ((value >> 56) & 0xFF);
-        }
-        else if (size == 6) {
-            packet[0] = (byte) ((value >>  0) & 0xFF);
-            packet[1] = (byte) ((value >>  8) & 0xFF);
+        } else if (size == 6) {
+            packet[0] = (byte) ((value >> 0) & 0xFF);
+            packet[1] = (byte) ((value >> 8) & 0xFF);
             packet[2] = (byte) ((value >> 16) & 0xFF);
             packet[3] = (byte) ((value >> 24) & 0xFF);
             packet[4] = (byte) ((value >> 32) & 0xFF);
             packet[5] = (byte) ((value >> 40) & 0xFF);
-        }
-        else if (size == 4) {
-            packet[0] = (byte) ((value >>  0) & 0xFF);
-            packet[1] = (byte) ((value >>  8) & 0xFF);
+        } else if (size == 4) {
+            packet[0] = (byte) ((value >> 0) & 0xFF);
+            packet[1] = (byte) ((value >> 8) & 0xFF);
             packet[2] = (byte) ((value >> 16) & 0xFF);
             packet[3] = (byte) ((value >> 24) & 0xFF);
-        }
-        else if (size == 3) {
-            packet[0] = (byte) ((value >>  0) & 0xFF);
-            packet[1] = (byte) ((value >>  8) & 0xFF);
+        } else if (size == 3) {
+            packet[0] = (byte) ((value >> 0) & 0xFF);
+            packet[1] = (byte) ((value >> 8) & 0xFF);
             packet[2] = (byte) ((value >> 16) & 0xFF);
-        }
-        else if (size == 2) {
-            packet[0] = (byte) ((value >>  0) & 0xFF);
-            packet[1] = (byte) ((value >>  8) & 0xFF);
-        }
-        else if (size == 1) {
-            packet[0] = (byte) ((value >>  0) & 0xFF);
-        }
-        else {
-            Logger.getLogger("MySQL.Proto").fatal("Encoding int["+size+"] "+value+" failed!");
+        } else if (size == 2) {
+            packet[0] = (byte) ((value >> 0) & 0xFF);
+            packet[1] = (byte) ((value >> 8) & 0xFF);
+        } else if (size == 1) {
+            packet[0] = (byte) ((value >> 0) & 0xFF);
+        } else {
+            Logger.getLogger("MySQL.Proto").fatal("Encoding int[" + size + "] " + value + " failed!");
             return null;
         }
         return packet;
@@ -78,26 +72,23 @@ public class Proto {
 
         if (value < 251) {
             packet = new byte[1];
-            packet[0] = (byte) ((value >>  0) & 0xFF);
-        }
-        else if (value < 65535) {
+            packet[0] = (byte) ((value >> 0) & 0xFF);
+        } else if (value < 65535) {
             packet = new byte[3];
             packet[0] = (byte) 0xFC;
-            packet[1] = (byte) ((value >>  0) & 0xFF);
-            packet[2] = (byte) ((value >>  8) & 0xFF);
-        }
-        else if (value < 16777215) {
+            packet[1] = (byte) ((value >> 0) & 0xFF);
+            packet[2] = (byte) ((value >> 8) & 0xFF);
+        } else if (value < 16777215) {
             packet = new byte[4];
             packet[0] = (byte) 0xFD;
-            packet[1] = (byte) ((value >>  0) & 0xFF);
-            packet[2] = (byte) ((value >>  8) & 0xFF);
+            packet[1] = (byte) ((value >> 0) & 0xFF);
+            packet[2] = (byte) ((value >> 8) & 0xFF);
             packet[3] = (byte) ((value >> 16) & 0xFF);
-        }
-        else {
+        } else {
             packet = new byte[9];
             packet[0] = (byte) 0xFE;
-            packet[1] = (byte) ((value >>  0) & 0xFF);
-            packet[2] = (byte) ((value >>  8) & 0xFF);
+            packet[1] = (byte) ((value >> 0) & 0xFF);
+            packet[2] = (byte) ((value >> 8) & 0xFF);
             packet[3] = (byte) ((value >> 16) & 0xFF);
             packet[4] = (byte) ((value >> 24) & 0xFF);
             packet[5] = (byte) ((value >> 32) & 0xFF);
@@ -144,11 +135,11 @@ public class Proto {
     }
 
     public static byte[] build_fixed_str(long size, String str) {
-        return Proto.build_fixed_str((int)size, str);
+        return Proto.build_fixed_str((int) size, str);
     }
 
     public static byte[] build_fixed_str(long size, String str, boolean base64) {
-        return Proto.build_fixed_str((int)size, str, base64);
+        return Proto.build_fixed_str((int) size, str, base64);
     }
 
     public static byte[] build_fixed_str(int size, String str) {
@@ -182,11 +173,11 @@ public class Proto {
     }
 
     public static byte[] build_filler(int len) {
-        return Proto.build_filler(len, (byte)0x00);
+        return Proto.build_filler(len, (byte) 0x00);
     }
 
     public static byte[] build_filler(int len, int filler_value) {
-        return Proto.build_filler(len, (byte)filler_value);
+        return Proto.build_filler(len, (byte) filler_value);
     }
 
     public static byte[] build_filler(int len, byte filler_value) {
@@ -203,17 +194,17 @@ public class Proto {
     }
 
     public static char int2char(byte i) {
-        return (char)i;
+        return (char) i;
     }
 
     public static byte char2int(char i) {
-        return (byte)i;
+        return (byte) i;
     }
 
     public long get_fixed_int(int size) {
         byte[] bytes = null;
 
-        if ( this.packet.length < (size + this.offset))
+        if (this.packet.length < (size + this.offset))
             return -1;
 
         bytes = new byte[size];
@@ -225,7 +216,7 @@ public class Proto {
     public static long get_fixed_int(byte[] bytes) {
         long value = 0;
 
-        for (int i = bytes.length-1; i > 0; i--) {
+        for (int i = bytes.length - 1; i > 0; i--) {
             value |= bytes[i] & 0xFF;
             value <<= 8;
         }
@@ -262,7 +253,7 @@ public class Proto {
         }
 
         if (size == 0) {
-            Logger.getLogger("MySQL.Proto").fatal("Decoding int at offset "+offset+" failed!");
+            Logger.getLogger("MySQL.Proto").fatal("Decoding int at offset " + offset + " failed!");
             return -1;
         }
 
@@ -270,16 +261,16 @@ public class Proto {
     }
 
     public String get_fixed_str(long len) {
-        return this.get_fixed_str((int)len);
+        return this.get_fixed_str((int) len);
     }
 
     public String get_fixed_str(long len, boolean base64) {
-        return this.get_fixed_str((int)len, base64);
+        return this.get_fixed_str((int) len, base64);
     }
 
     public String get_fixed_str(int len) {
         int start = this.offset;
-        int end = this.offset+len;
+        int end = this.offset + len;
 
         if (end > this.packet.length) {
             end = this.packet.length;
@@ -298,7 +289,7 @@ public class Proto {
 
     public String get_fixed_str(int len, boolean base64) {
         int start = this.offset;
-        int end = this.offset+len;
+        int end = this.offset + len;
 
         if (end > this.packet.length) {
             end = this.packet.length;
@@ -346,19 +337,19 @@ public class Proto {
     }
 
     public String get_lenenc_str(boolean base64) {
-        int len = (int)this.get_lenenc_int();
+        int len = (int) this.get_lenenc_int();
         return this.get_fixed_str(len, base64);
     }
 
     public static byte[] arraylist_to_array(ArrayList<byte[]> input) {
         int size = 0;
-        for (byte[] field: input)
+        for (byte[] field : input)
             size += field.length;
 
         byte[] result = new byte[size];
 
         int offset = 0;
-        for (byte[] field: input) {
+        for (byte[] field : input) {
             System.arraycopy(field, 0, result, offset, field.length);
             offset += field.length;
         }
@@ -368,10 +359,11 @@ public class Proto {
 
     public static byte[] packet_string_to_bytes(String str) {
         byte[] res = null;
-        str = str.replaceAll("\\s","").toUpperCase();
+        str = str.replaceAll("\\s", "").toUpperCase();
         try {
             res = Hex.decodeHex(str.toCharArray());
-        } catch (DecoderException e) {}
+        } catch (DecoderException e) {
+        }
         return res;
     }
 }

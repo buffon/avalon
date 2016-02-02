@@ -19,14 +19,14 @@ import org.apache.log4j.Logger;
 
 import avalon.plugin.Base;
 
-public class Avalon_Thread implements Runnable {
+public class AvalonThread implements Runnable {
     public int port;
     public boolean listening = true;
     public ServerSocket listener = null;
     public ArrayList<Base> plugins = new ArrayList<Base>();
     public Logger logger = Logger.getLogger("JMP_Thread");
 
-    public Avalon_Thread(int port) {
+    public AvalonThread(int port) {
         Thread.currentThread().setName("Listener: " + port);
         this.port = port;
     }
@@ -54,13 +54,7 @@ public class Avalon_Thread implements Runnable {
                 try {
                     plugins.add((Base) Base.class.getClassLoader().loadClass(p.trim()).newInstance());
                     this.logger.info("Loaded plugin " + p);
-                } catch (ClassNotFoundException e) {
-                    this.logger.error("[" + p + "] " + e);
-                    continue;
-                } catch (InstantiationException e) {
-                    this.logger.error("[" + p + "] " + e);
-                    continue;
-                } catch (IllegalAccessException e) {
+                } catch (Exception e) {
                     this.logger.error("[" + p + "] " + e);
                     continue;
                 }

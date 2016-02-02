@@ -4,6 +4,7 @@
 package avalon.mysql.proto;
 
 import java.util.ArrayList;
+
 import org.apache.log4j.Logger;
 
 public class AuthSwitchResponse extends Packet {

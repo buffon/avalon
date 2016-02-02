@@ -113,7 +113,7 @@ public class FrontConnHandler extends ChannelInboundHandlerAdapter {
     }
 
     public void outBoundChannelReady() {
-        synchronized(buffer) {
+        synchronized (buffer) {
             if (outboundChannel.isActive()) {
                 for (Object ojb : buffer) {
                     outboundChannel.writeAndFlush(ojb);

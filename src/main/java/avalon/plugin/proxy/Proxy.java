@@ -34,7 +34,7 @@ public class Proxy extends Base {
     public InputStream mysqlIn = null;
     public OutputStream mysqlOut = null;
 
-    public void init(Engine context) throws IOException, UnknownHostException {
+    public void init(Engine context) throws IOException {
         this.logger.trace("init");
 
         String[] phs = Avalon.config.getProperty("proxyHosts").split(",");
@@ -189,7 +189,7 @@ public class Proxy extends Base {
 
             default:
                 context.buffer = MySqlPacket.read_full_result_set(this.mysqlIn, context.clientOut, context.buffer,
-                                                                         context.bufferResultSet);
+                        context.bufferResultSet);
                 break;
         }
     }
